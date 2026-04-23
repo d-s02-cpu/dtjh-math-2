@@ -177,7 +177,7 @@
                     
                     let sum = currentA + currentB;
                     document.getElementById('q-feedback').innerHTML = 
-                        `提示：$-${currentA} - ${currentB} = -(${currentA} + ${currentB}) = ?$`;
+                        `提示：因為$+${currentA} + ${currentB} = + ${currentA + currentB}$，所以$-${currentA} - ${currentB} = ?$`;
                     MathJax.typesetPromise();
                 }
             };

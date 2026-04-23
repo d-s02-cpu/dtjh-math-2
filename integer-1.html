@@ -177,7 +177,7 @@
 
                     let diff = currentB - currentA;
                     document.getElementById('q-feedback').innerHTML = 
-                        `提示：$${currentB} - ${currentA} = ${diff}$`;
+                        `提示：因為 $${currentB} - ${currentA} = ${diff}$，所以$${currentA} - ${currentB} = ?$`;
                     MathJax.typesetPromise();
                 }
             };
