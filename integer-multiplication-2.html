@@ -147,7 +147,7 @@
         let valid = false;
         while (!valid) {
             currentA = getRandomInt(10, 99) * (Math.random() > 0.5 ? 1 : -1);
-            currentB = getRandomInt(1, 9) * (Math.random() > 0.5 ? 1 : -1);
+            currentB = getRandomInt(2, 9) * (Math.random() > 0.5 ? 1 : -1);
             if (Math.abs(currentA * currentB) <= 100) valid = true;
         }
 
