@@ -159,6 +159,13 @@
         currentA = getChallengeInt(-10, 10);
         currentB = getChallengeInt(-10, 10);
 
+        if (currentA > 0 && currentB > 0) {
+            if (Math.random() < 0.8) {
+                currentA = getChallengeInt(-10, 10);
+                currentB = getChallengeInt(-10, 10);  
+            }
+        }
+
         // 格式化 B，如果是負數則加括號
         let displayB = currentB < 0 ? `(${currentB})` : currentB;
         document.getElementById('question-box').innerHTML = `$$ ${currentA} \\times ${displayB} $$`;
