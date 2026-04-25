@@ -127,6 +127,19 @@
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
+    // --- 新增：具有 80% 排除簡單數字機率的函式 ---
+    function getChallengeInt(min, max) {
+        let val = getRandomInt(min, max);
+        const simpleNumbers = [0, 1, -1, 10, -10];
+        
+        // 如果抽到簡單數字，且 80% 的隨機機率成立
+        if (simpleNumbers.includes(val) && Math.random() < 0.8) {
+            // 就再抽一次（這次抽到什麼都接受，這就是你說的「認了」）
+            return getRandomInt(min, max);
+        }
+        return val;
+    }
+
     function generateQuestion() {
         if (questionCount >= 10) {
             showResult();
@@ -143,8 +156,8 @@
         document.getElementById('q-feedback').innerText = '';
         document.getElementById('options-container').innerHTML = '';
 
-        currentA = getRandomInt(-10, 10);
-        currentB = getRandomInt(-10, 10);
+        currentA = getChallengeInt(-10, 10);
+        currentB = getChallengeInt(-10, 10);
 
         // 格式化 B，如果是負數則加括號
         let displayB = currentB < 0 ? `(${currentB})` : currentB;
