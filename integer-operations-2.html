@@ -188,8 +188,8 @@
 
         // 加入干擾項
         choiceSet.add(-correctAnswer);
-        choiceSet.add(currentA * currentB);
-        choiceSet.add(currentA + currentB + currentC);
+        choiceSet.add((currentOp === '+') ? (currentA * currentB - currentC) : (currentA * currentB + currentC));
+        choiceSet.add((currentOp === '+') ? (-currentA * currentB + currentC) : (-currentA * currentB - currentC));
 
         // 確保至少有 4 個選項並補足隨機項
         while (choiceSet.size < 4) {
