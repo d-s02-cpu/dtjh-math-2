@@ -230,9 +230,11 @@
             
             // --- 提示邏輯修正處 ---
             let prod = currentA * currentB;
+            // 1. 處理「被乘數 a」：如果是負數就加括號
+            let aDisplay = currentA < 0 ? `(${currentA})` : `${currentA}`;
             // 處理 b 為負數時要加括號
             let bDisplay = currentB < 0 ? `(${currentB})` : `${currentB}`;
-            let prodExpr = `${currentA} \\times ${bDisplay}`;
+            let prodExpr = `${aDisplay} \\times ${bDisplay}`;
             
             // 處理 C 部分的顯示
             let cPart = currentC > 0 ? `+ ${currentC}` : `- ${Math.abs(currentC)}`;
