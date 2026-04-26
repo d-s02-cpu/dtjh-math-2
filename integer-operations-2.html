@@ -76,7 +76,7 @@
 
 <div class="container" id="start-screen">
     <h2>苗栗大同國中資源中心</h2>
-    <h3>題型一：簡單的四則運算</h3>
+    <h3>題型二：基礎的四則運算</h3>
     <button class="btn" style="background: var(--primary-color); color: white; width: 100%;" onclick="startQuiz()">開始練習</button>
     <div id="qrcode-container">
         <div id="qrcode"></div>
@@ -112,6 +112,7 @@
     let currentA = 0;
     let currentB = 0;
     let currentC = 0;
+    let currentOp = '+'; // 新增：儲存當前的運算符號 (+ 或 -)
     let questionCount = 0;
     let totalScore = 0;
     let isFirstTry = true;
@@ -151,7 +152,7 @@
 
         // 生成參數 a, b, c (-10 to 10)
         currentA = getRandomNonZero(-10, 10);
-        currentB = getRandomInt(-10, 10); // b 可以為 0
+        currentB = getRandomInt(-10, 10); 
         currentC = getRandomNonZero(-10, 10);
 
         if (currentA > 0 && currentB >= 0 && currentC > 0) {
@@ -161,17 +162,16 @@
                 currentC = getRandomNonZero(-10, 10);
             }
         }
+        
+        // 隨機選擇運算符號 + 或 -
+        currentOp = Math.random() < 0.5 ? '+' : '-';
 
-        // 格式化算式顯示
+        // 格式化算式顯示：a, b, c 若為負數或 c 均加上括號
         let aStr = currentA < 0 ? `(${currentA})` : `${currentA}`;
         let bStr = currentB < 0 ? `(${currentB})` : `${currentB}`;
-        let mathML = "";
+        let cStr = currentC < 0 ? `(${currentC})` : `${currentC}`;
 
-        if (currentC > 0) {
-            mathML = `${aStr} \\times ${bStr} + ${currentC}`;
-        } else {
-            mathML = `${aStr} \\times ${bStr} - ${Math.abs(currentC)}`;
-        }
+        let mathML = `${aStr} \\times ${bStr} ${currentOp} ${cStr}`;
 
         document.getElementById('question-box').innerHTML = `$$ ${mathML} $$`;
         setupOptions();
@@ -180,19 +180,20 @@
 
     function setupOptions() {
         const container = document.getElementById('options-container');
-        let correctAnswer = currentA * currentB + currentC;
+        // 根據符號計算正確答案
+        let correctAnswer = (currentOp === '+') ? (currentA * currentB + currentC) : (currentA * currentB - currentC);
         
         let choiceSet = new Set();
         choiceSet.add(correctAnswer);
 
-        // 加入指定干擾項
-        choiceSet.add(-(currentA * currentB) + currentC); // -a*b+c
-        choiceSet.add(currentA * currentB - currentC);    // a*b-c
-        choiceSet.add(-(currentA * currentB) - currentC); // -a*b-c
+        // 加入干擾項
+        choiceSet.add(-correctAnswer);
+        choiceSet.add(currentA * currentB);
+        choiceSet.add(currentA + currentB + currentC);
 
         // 確保至少有 4 個選項並補足隨機項
         while (choiceSet.size < 4) {
-            choiceSet.add(correctAnswer + getRandomInt(-5, 5));
+            choiceSet.add(correctAnswer + getRandomInt(-10, 10));
         }
 
         Array.from(choiceSet).sort(() => Math.random() - 0.5).forEach(val => {
@@ -213,7 +214,7 @@
     function checkAnswer() {
         if (selectedValue === null) return;
 
-        let correctAnswer = currentA * currentB + currentC;
+        let correctAnswer = (currentOp === '+') ? (currentA * currentB + currentC) : (currentA * currentB - currentC);
         const feedbackEl = document.getElementById('q-feedback');
 
         if (selectedValue === correctAnswer) {
@@ -228,19 +229,13 @@
             isFirstTry = false;
             feedbackEl.style.color = "var(--error-color)";
             
-            // --- 提示邏輯修正處 ---
-            let prod = currentA * currentB;
-            // 1. 處理「被乘數 a」：如果是負數就加括號
             let aDisplay = currentA < 0 ? `(${currentA})` : `${currentA}`;
-            // 處理 b 為負數時要加括號
             let bDisplay = currentB < 0 ? `(${currentB})` : `${currentB}`;
+            let cDisplay = currentC < 0 ? `(${currentC})` : `${currentC}`;
             let prodExpr = `${aDisplay} \\times ${bDisplay}`;
+            let prodResult = currentA * currentB;
             
-            // 處理 C 部分的顯示
-            let cPart = currentC > 0 ? `+ ${currentC}` : `- ${Math.abs(currentC)}`;
-            
-            feedbackEl.innerHTML = `提示：先算 $ ${prodExpr} $，再算 $ ${cPart} $`;
-            // ---------------------
+            feedbackEl.innerHTML = `提示：先算 $ ${prodExpr} $，再算 $ ${currentOp} ${cDisplay} $`;
             
             MathJax.typesetPromise([feedbackEl]);
             document.getElementById('confirm-btn').style.display = 'none';
