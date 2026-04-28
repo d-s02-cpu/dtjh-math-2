@@ -148,6 +148,12 @@
         currentB = getRandomInt(1, 20);
         currentA = getRandomInt(0, currentB - 1);
 
+        if (currentA === 0) {
+            if (Math.random() < 0.8) {
+                currentA = getRandomInt(0, currentB - 1);
+            }
+        }
+
         document.getElementById('question-box').innerHTML = `$$ ${currentA} - ${currentB} $$`;
 
         setupOptions();
