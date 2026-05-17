@@ -148,6 +148,7 @@
         let sign = (num * den < 0) ? "-" : "";
         num = Math.abs(num);
         den = Math.abs(den);
+
         return `\\displaystyle${sign}\\frac{${num}}{${den}}`;
     }
 
@@ -192,9 +193,22 @@
         choiceSet.add(correctAnswer);
 
         // 加入指定干擾項
-        choiceSet.add(-correctAnswer);
-        choiceSet.add(frac(currentB, -currentA));
-        choiceSet.add(frac(currentB, currentA));
+        if (currentB !== 0) {
+            choiceSet.add(-correctAnswer);
+
+            if (currentB % currentA === 0) {
+                choiceSet.add(currentB / currentA);
+                choiceSet.add(-currentB / currentA);
+            }
+            else {
+                choiceSet.add(frac(currentB, -currentA));
+                choiceSet.add(frac(currentB, currentA));
+            }
+        }
+        else {
+            choiceSet.add(currentA);
+            choiceSet.add(-currentA);
+        }
 
         // 確保至少有 4 個選項並補足隨機項
         while (choiceSet.size < 4) {
