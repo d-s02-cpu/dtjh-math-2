@@ -207,10 +207,10 @@
             }
             else if (currentB < 0) {
                 if (mod(currentB) + currentA % 10 >= 10) {
-                    choiceSet.add(correctAnswer - 10);
+                    choiceSet.add(correctAnswer + 10);
                 }
                 else {
-                    choiceSet.add(correctAnswer + 10);
+                    choiceSet.add(correctAnswer - 10);
                 }
             }
         }
