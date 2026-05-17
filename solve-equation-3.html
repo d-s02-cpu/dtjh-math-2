@@ -252,7 +252,7 @@
             let bDisplay = currentB < 0 ? `(${currentB})` : `${currentB}`;
             let aDisplay = currentA < 0 ? `(${currentA})` : `${currentA}`;
             
-            feedbackEl.innerHTML = `提示：利用等量公理，將兩邊同乘以 $${aDisplay}$。所以 $x = ${bDisplay} \\times ${aDisplay}$`;
+            feedbackEl.innerHTML = `提示：利用等量公理，將兩邊同時乘以 $${aDisplay}$。所以 $x = ${bDisplay} \\times ${aDisplay}$`;
             
             MathJax.typesetPromise([feedbackEl]);
             document.getElementById('confirm-btn').style.display = 'none';
