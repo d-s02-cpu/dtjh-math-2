@@ -171,7 +171,7 @@
         do {
             currentA = getRandomNonZero(-10, 10);
             currentB = getRandomNonZero(-10, 10);
-        } while ((Math.abs(currentA) === 1 || gcd(currentA, currentB) !== 1) || (currentA === -1 && Math.random() < 0.8));
+        } while (Math.abs(currentA) === 1 || gcd(currentA, currentB) !== 1);
 
         // 格式化 ax = b 的顯示
         let aStr = `${currentA}x`;
