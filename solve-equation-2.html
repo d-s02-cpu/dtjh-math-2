@@ -148,7 +148,8 @@
         let sign = (num * den < 0) ? "-" : "";
         num = Math.abs(num);
         den = Math.abs(den);
-        return `\\displaystyle${sign}\\frac{${num}}{${den}}`;
+
+        return (den !== 1) ? (`\\displaystyle${sign}\\frac{${num}}{${den}}`) : (`${sign}${num}`);
     }
 
     function generateQuestion() {
