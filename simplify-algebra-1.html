@@ -178,6 +178,9 @@
         }
 
         let mathML = `${aStr}\\cdot${bStr}`;
+        if (Math.random() < 0.3) {
+            mathML = `${bStr}\\cdot${aStr}`;
+        }
 
         document.getElementById('question-box').innerHTML = `$$ ${mathML} $$`;
         setupOptions();
