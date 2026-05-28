@@ -89,7 +89,7 @@
         <span id="question-number">第 1 題 / 共 10 題</span>
     </div>
 
-    <div class="question-text">請解下列方程式，求出 $x$ 的值：</div>
+    <div class="question-text">請化簡下列代數式：</div>
     <div id="question-box"></div>
 
     <div id="answer-section">
@@ -149,24 +149,35 @@
         document.getElementById('q-feedback').innerText = '';
         document.getElementById('options-container').innerHTML = '';
 
-        // 生成參數 a 與未知數 x 確保不超過 10 且 a 不為 0,1
+        // 生成參數 a 與未知數 b 確保不超過 10 且 a 不為 0,1
         do {
             currentA = getRandomNonZero(-10, 10);
         } while (currentA === 1 || (currentA === -1 && Math.random() < 0.8));
 
-        currentX = getRandomInt(-10, 10); 
+        do {
+            currentB = getRandomNonZero(-10, 10);
+        } while (currentB === 1 || (currentB === -1 && Math.random() < 0.8));
 
-        currentB = currentA * currentX; // 自動生成常數項 b
-
-        // 格式化 ax = b 的顯示
+        // 格式化 a*(bx) 的顯示
         let aStr = "";
         if (currentA === -1) {
-            aStr = "-x";
+            aStr = "-";
+        } else if (currentA < 0) {
+            aStr = `${(currentA)}`;
         } else {
-            aStr = `${currentA}x`;
+            aStr = `${currentA}`;
         }
 
-        let mathML = `${aStr} = ${currentB}`;
+        let bStr = "";
+        if (currentB === -1) {
+            bStr = "-x";
+        } else if (currentB < 0) {
+            bStr = `${(currentB)}`;
+        } else {
+            bStr = `${currentB}`;
+        }
+
+        let mathML = `$${aStr}\cdot${bStr}$`;
 
         document.getElementById('question-box').innerHTML = `$$ ${mathML} $$`;
         setupOptions();
