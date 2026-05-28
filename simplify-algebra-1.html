@@ -163,7 +163,7 @@
         if (currentA === -1) {
             aStr = "-";
         } else if (currentA < 0) {
-            aStr = `${(currentA)}`;
+            aStr = `$({currentA})`;
         } else {
             aStr = `${currentA}`;
         }
@@ -172,7 +172,7 @@
         if (currentB === -1) {
             bStr = "-x";
         } else if (currentB < 0) {
-            bStr = `${(currentB)}x`;
+            bStr = `(${currentB}x)`;
         } else {
             bStr = `${currentB}x`;
         }
