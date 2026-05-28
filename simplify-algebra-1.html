@@ -203,13 +203,20 @@
         if (mode === 0) {
             if (currentB > 0) {
                 choiceSet.add( `${currentA + currentB}x`);
-            } 
-            
-            
+                choiceSet.add( `- ${currentA + currentB}x`);
+            } else {
+                choiceSet.add( `${currentA - currentB}x`);
+                choiceSet.add( `- ${currentA - currentB}x`);
+            }
+        } else {
+            if (currentA > 0) {
+                choiceSet.add( `${currentB + currentA}x`);
+                choiceSet.add( `- ${currentB + currentA}x`);
+            } else {
+                choiceSet.add( `${currentB - currentA}x`);
+                choiceSet.add( `- ${currentB - currentA}x`);
+            }
         }
-        choiceSet.add(currentB - currentA);                // 誤用加減法 (把乘移過去變成減)
-        choiceSet.add(currentB + currentA);
-        //if (currentB !== 0) choiceSet.add(currentA * currentB); // 誤用乘法 (把乘移過去又變乘)
 
         // 確保至少有 4 個選項並補足隨機項
         // while (choiceSet.size < 4) {
