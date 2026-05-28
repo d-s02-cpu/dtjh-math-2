@@ -178,8 +178,11 @@
         }
 
         let mathML = `${aStr}\\cdot${bStr}`;
+
+        let mode = 0;
         if (Math.random() < 0.3) {
             mathML = `${bStr}\\cdot${aStr}`;
+            mode = 1;
         }
 
         document.getElementById('question-box').innerHTML = `$$ ${mathML} $$`;
@@ -189,23 +192,29 @@
 
     function setupOptions() {
         const container = document.getElementById('options-container');
-        let correctAnswer = `${currentA*currentB}x`;
+        let correctAnswer = `${currentA * currentB}x`;
         
         let choiceSet = new Set();
         choiceSet.add(correctAnswer);
 
         // 加入指定干擾項
-        if (correctAnswer !== 0) {
-            choiceSet.add(-correctAnswer);                     // 變號錯誤 (如 2 變成 -2)
+        choiceSet.add( `- ${currentA * currentB}x`);
+
+        if (mode === 0) {
+            if (currentB > 0) {
+                choiceSet.add( `${currentA + currentB}x`);
+            } 
+            
+            
         }
         choiceSet.add(currentB - currentA);                // 誤用加減法 (把乘移過去變成減)
         choiceSet.add(currentB + currentA);
         //if (currentB !== 0) choiceSet.add(currentA * currentB); // 誤用乘法 (把乘移過去又變乘)
 
         // 確保至少有 4 個選項並補足隨機項
-        while (choiceSet.size < 4) {
-            choiceSet.add(correctAnswer + getRandomInt(-5, 5));
-        }
+        // while (choiceSet.size < 4) {
+        //     choiceSet.add(correctAnswer + getRandomInt(-5, 5));
+        // }
 
         Array.from(choiceSet).sort(() => Math.random() - 0.5).forEach(val => {
             const btn = document.createElement('button');
