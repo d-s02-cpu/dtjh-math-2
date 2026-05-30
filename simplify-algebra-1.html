@@ -198,23 +198,23 @@
         choiceSet.add(correctAnswer);
 
         // 加入指定干擾項
-        choiceSet.add( `- ${currentA * currentB}x`);
+        choiceSet.add( `${-currentA * currentB}x`);
 
         if (mode) {
             if (currentB > 0) {
                 choiceSet.add( `${currentA + currentB}x`);
-                choiceSet.add( `- ${currentA + currentB}x`);
+                choiceSet.add( `${-(currentA + currentB)}x`);
             } else {
                 choiceSet.add( `${currentA - currentB}x`);
-                choiceSet.add( `- ${currentA - currentB}x`);
+                choiceSet.add( `${-(currentA - currentB)}x`);
             }
         } else {
             if (currentA > 0) {
                 choiceSet.add( `${currentB + currentA}x`);
-                choiceSet.add( `- ${currentB + currentA}x`);
+                choiceSet.add( `${-(currentB + currentA)}x`);
             } else {
                 choiceSet.add( `${currentB - currentA}x`);
-                choiceSet.add( `- ${currentB - currentA}x`);
+                choiceSet.add( `${-(currentB - currentA)}x`);
             }
         }
 
@@ -241,7 +241,7 @@
     function checkAnswer() {
         if (selectedValue === null) return;
 
-        let correctAnswer = currentX;
+        let correctAnswer = `${currentA * currentB}x`;
         const feedbackEl = document.getElementById('q-feedback');
 
         if (selectedValue === correctAnswer) {
