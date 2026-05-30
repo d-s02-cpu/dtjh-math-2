@@ -203,25 +203,25 @@
         if (mode) {
             if (currentB > 0) {
                 choiceSet.add( `${currentA + currentB}x`);
-                choiceSet.add( `${-(currentA + currentB)}x`);
+                choiceSet.add( `${-currentA - currentB}x`);
             } else {
                 choiceSet.add( `${currentA - currentB}x`);
-                choiceSet.add( `${-(currentA - currentB)}x`);
+                choiceSet.add( `${-currentA + currentB}x`);
             }
         } else {
             if (currentA > 0) {
                 choiceSet.add( `${currentB + currentA}x`);
-                choiceSet.add( `${-(currentB + currentA)}x`);
+                choiceSet.add( `${-currentB - currentA)}x`);
             } else {
                 choiceSet.add( `${currentB - currentA}x`);
-                choiceSet.add( `${-(currentB - currentA)}x`);
+                choiceSet.add( `${-currentB + currentA}x`);
             }
         }
 
         // 確保至少有 4 個選項並補足隨機項
-        // while (choiceSet.size < 4) {
-        //     choiceSet.add(correctAnswer + getRandomInt(-5, 5));
-        // }
+        while (choiceSet.size < 4) {
+            choiceSet.add(0);
+        }
 
         Array.from(choiceSet).sort(() => Math.random() - 0.5).forEach(val => {
             const btn = document.createElement('button');
@@ -260,7 +260,7 @@
             let bDisplay = currentB < 0 ? `(${currentB})` : `${currentB}`;
             let aDisplay = currentA < 0 ? `(${currentA})` : `${currentA}`;
             
-            feedbackEl.innerHTML = `提示：利用等量公理，將兩邊同時除以 $${aDisplay}$。所以 $x = ${bDisplay} \\div ${aDisplay}$`;
+            feedbackEl.innerHTML = `提示：$${aDisplay}\\times${bDisplay} = ${currentA * currentB}$。`;
             
             MathJax.typesetPromise([feedbackEl]);
             document.getElementById('confirm-btn').style.display = 'none';
