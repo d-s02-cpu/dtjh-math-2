@@ -225,7 +225,7 @@
 
         Array.from(choiceSet).sort(() => Math.random() - 0.5).forEach(val => {
             const btn = document.createElement('button');
-            btn.className = 'btn'; btn.innerHTML = `$x = ${val}$`;
+            btn.className = 'btn'; btn.innerHTML = `${val}$`;
             btn.onclick = () => {
                 if (document.getElementById('next-btn').style.display === 'block') return;
                 container.querySelectorAll('.btn').forEach(b => b.classList.remove('selected'));
